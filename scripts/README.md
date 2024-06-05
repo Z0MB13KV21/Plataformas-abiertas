@@ -6,7 +6,7 @@ Este repositorio está dirigido a Trabajos Universitarios
 #Integrante:
 --Carlos Daniel Obando Lezama
 
-Archivo README para la base de datos KVEstilos
+README base de datos KVEstilos
 a. Descripción del proyecto
 KVEstilos es una base de datos diseñada para una tienda de ropa. El objetivo principal de esta base de datos es gestionar la información relacionada con las marcas, las prendas y las ventas realizadas. La base de datos consta de tres tablas principales: Marcas, Prendas y Ventas. Además, se han creado tres vistas para facilitar la consulta de datos importantes para la gestión del negocio.
 
