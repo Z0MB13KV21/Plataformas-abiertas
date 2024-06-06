@@ -1,7 +1,7 @@
 # Plataformas-abiertas
 Este repositorio está dirigido a Trabajos Universitarios
 
-#Primer Proyecto
+# Primer Proyecto
 
 #Integrante:
 --Carlos Daniel Obando Lezama
@@ -12,13 +12,13 @@ KVEstilos es una base de datos diseñada para una tienda de ropa. El objetivo pr
 
 Estructura de la base de datos
 
-#Tablas:
+## Tablas:
 
 Marcas: Contiene información sobre las diferentes marcas de ropa disponibles en la tienda.
 Prendas: Almacena detalles sobre las prendas de ropa, incluyendo la marca, el nombre, la talla, el precio y el stock.
 Ventas: Registra las ventas realizadas, especificando la prenda vendida, la fecha de la venta y la cantidad vendida.
 
-#Vistas:
+# Vistas:
 
 MarcasConVentas: Lista todas las marcas que han tenido al menos una venta.
 PrendasVendidasConStock: Muestra las prendas vendidas junto con su cantidad restante en stock.
@@ -36,17 +36,17 @@ b. Diagrama de la estructura de la base de datos
                            | Precio         |         +----------------+
                            | Stock          |
                            +----------------+
-#Marcas tiene una relación uno a muchos con Prendas.
+# Marcas tiene una relación uno a muchos con Prendas.
 
 --Un registro en Marcas puede estar relacionado con múltiples registros en Prendas.
 --MarcaID es la clave primaria (PK) en Marcas y la clave foránea (FK) en Prendas.
 
-#Prendas tiene una relación uno a muchos con Ventas.
+# Prendas tiene una relación uno a muchos con Ventas.
 
 --Un registro en Prendas puede estar relacionado con múltiples registros en Ventas.
 --PrendaID es la clave primaria (PK) en Prendas y la clave foránea (FK) en Ventas.
 
-#Creación de la base de datos y tablas
+# Creación de la base de datos y tablas
 
 -- Creación de la base de datos KVEstilos
 CREATE DATABASE KVEstilos;
