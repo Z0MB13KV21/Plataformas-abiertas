@@ -9,13 +9,13 @@ KVEstilos es una base de datos diseñada para una tienda de ropa. El objetivo pr
 
 Estructura de la base de datos
 
-#Tablas:
+# Tablas:
 
 Marcas: Contiene información sobre las diferentes marcas de ropa disponibles en la tienda.
 Prendas: Almacena detalles sobre las prendas de ropa, incluyendo la marca, el nombre, la talla, el precio y el stock.
 Ventas: Registra las ventas realizadas, especificando la prenda vendida, la fecha de la venta y la cantidad vendida.
 
-#Vistas:
+# Vistas:
 
 MarcasConVentas: Lista todas las marcas que han tenido al menos una venta.
 PrendasVendidasConStock: Muestra las prendas vendidas junto con su cantidad restante en stock.
@@ -33,17 +33,17 @@ b. Diagrama de la estructura de la base de datos
                            | Precio         |         +----------------+
                            | Stock          |
                            +----------------+
-#Marcas tiene una relación uno a muchos con Prendas.
+# Marcas tiene una relación uno a muchos con Prendas.
 
 --Un registro en Marcas puede estar relacionado con múltiples registros en Prendas.
 --MarcaID es la clave primaria (PK) en Marcas y la clave foránea (FK) en Prendas.
 
-#Prendas tiene una relación uno a muchos con Ventas.
+# Prendas tiene una relación uno a muchos con Ventas.
 
 --Un registro en Prendas puede estar relacionado con múltiples registros en Ventas.
 --PrendaID es la clave primaria (PK) en Prendas y la clave foránea (FK) en Ventas.
 
-#Creación de la base de datos y tablas
+# Creación de la base de datos y tablas
 
 -- Creación de la base de datos KVEstilos
 CREATE DATABASE KVEstilos;
@@ -78,7 +78,7 @@ CREATE TABLE Ventas (
 );
 
 
-#Inserción de datos de ejemplo
+# Inserción de datos de ejemplo
 
 -- Inserción de datos en la tabla Marcas
 INSERT INTO Marcas (Nombre) VALUES
@@ -99,17 +99,18 @@ INSERT INTO Ventas (PrendaID, Fecha, Cantidad) VALUES
 (3, '2024-01-03', 2);
 
 
-#Eliminación de un dato
+# Eliminación de un dato
 
 -- Eliminación de un dato de la tabla Prendas
 DELETE FROM Prendas WHERE PrendaID = 1;
 
-#Actualización de un dato
+# Actualización de un dato
 
--- Actualización de un dato en la tabla Prendas
-UPDATE Prendas SET Precio = 29.99 WHERE PrendaID = 2;
+-- Eliminación de un dato de la tabla Prendas
+DELETE FROM ventas WHERE PrendaID = 1;
+DELETE FROM Prendas WHERE PrendaID = 1;
 
-#Consulta para obtener la cantidad vendida de prendas por fecha específica
+# Consulta para obtener la cantidad vendida de prendas por fecha específica
 
 -- Consulta para obtener la cantidad vendida de prendas por fecha específica
 SELECT PrendaID, SUM(Cantidad) AS TotalVendido
@@ -117,7 +118,7 @@ FROM Ventas
 WHERE Fecha = '2024-01-02'
 GROUP BY PrendaID;
 
-#Creación de vistas
+# Creación de vistas
 
 -- Vista para obtener la lista de todas las marcas que tienen al menos una venta
 CREATE VIEW MarcasConVentas AS
