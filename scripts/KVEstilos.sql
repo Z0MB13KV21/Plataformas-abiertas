@@ -67,8 +67,7 @@ INSERT INTO Ventas (PrendaID, Fecha, Cantidad) VALUES
 (2, '2024-01-02', 3),
 (3, '2024-01-03', 2);
 
--- Eliminación de un dato de la tabla Prendas y Ventas
-DELETE FROM ventas WHERE PrendaID = 1;
+-- Eliminación de un dato de la tabla Prendas
 DELETE FROM Prendas WHERE PrendaID = 1;
 
 -- Actualización de un dato en la tabla Prendas

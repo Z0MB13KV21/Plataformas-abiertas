@@ -1,24 +1,21 @@
 # Plataformas-abiertas
 Este repositorio está dirigido a Trabajos Universitarios
 
-# Primer Proyecto
+#Primer Proyecto
 
-#Integrante:
---Carlos Daniel Obando Lezama
-
-README base de datos KVEstilos
+Archivo README para la base de datos KVEstilos
 a. Descripción del proyecto
 KVEstilos es una base de datos diseñada para una tienda de ropa. El objetivo principal de esta base de datos es gestionar la información relacionada con las marcas, las prendas y las ventas realizadas. La base de datos consta de tres tablas principales: Marcas, Prendas y Ventas. Además, se han creado tres vistas para facilitar la consulta de datos importantes para la gestión del negocio.
 
 Estructura de la base de datos
 
-## Tablas:
+#Tablas:
 
 Marcas: Contiene información sobre las diferentes marcas de ropa disponibles en la tienda.
 Prendas: Almacena detalles sobre las prendas de ropa, incluyendo la marca, el nombre, la talla, el precio y el stock.
 Ventas: Registra las ventas realizadas, especificando la prenda vendida, la fecha de la venta y la cantidad vendida.
 
-# Vistas:
+#Vistas:
 
 MarcasConVentas: Lista todas las marcas que han tenido al menos una venta.
 PrendasVendidasConStock: Muestra las prendas vendidas junto con su cantidad restante en stock.
@@ -36,17 +33,17 @@ b. Diagrama de la estructura de la base de datos
                            | Precio         |         +----------------+
                            | Stock          |
                            +----------------+
-# Marcas tiene una relación uno a muchos con Prendas.
+#Marcas tiene una relación uno a muchos con Prendas.
 
 --Un registro en Marcas puede estar relacionado con múltiples registros en Prendas.
 --MarcaID es la clave primaria (PK) en Marcas y la clave foránea (FK) en Prendas.
 
-# Prendas tiene una relación uno a muchos con Ventas.
+#Prendas tiene una relación uno a muchos con Ventas.
 
 --Un registro en Prendas puede estar relacionado con múltiples registros en Ventas.
 --PrendaID es la clave primaria (PK) en Prendas y la clave foránea (FK) en Ventas.
 
-# Creación de la base de datos y tablas
+#Creación de la base de datos y tablas
 
 -- Creación de la base de datos KVEstilos
 CREATE DATABASE KVEstilos;
@@ -104,8 +101,7 @@ INSERT INTO Ventas (PrendaID, Fecha, Cantidad) VALUES
 
 #Eliminación de un dato
 
--- Eliminación de un dato de la tabla Prendas y Ventas
-DELETE FROM ventas WHERE PrendaID = 1;
+-- Eliminación de un dato de la tabla Prendas
 DELETE FROM Prendas WHERE PrendaID = 1;
 
 #Actualización de un dato
