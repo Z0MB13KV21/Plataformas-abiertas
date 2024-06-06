@@ -102,13 +102,13 @@ INSERT INTO Ventas (PrendaID, Fecha, Cantidad) VALUES
 # Eliminación de un dato
 
 -- Eliminación de un dato de la tabla Prendas
-DELETE FROM Prendas WHERE PrendaID = 1;
-
-# Actualización de un dato
-
--- Eliminación de un dato de la tabla Prendas
 DELETE FROM ventas WHERE PrendaID = 1;
 DELETE FROM Prendas WHERE PrendaID = 1;
+
+#Actualización de un dato
+
+-- Actualización de un dato en la tabla Prendas
+UPDATE Prendas SET Precio = 29.99 WHERE PrendaID = 2;
 
 # Consulta para obtener la cantidad vendida de prendas por fecha específica
 
