@@ -8,12 +8,13 @@ $prendaController = new PrendaController();
 $ventaController = new VentaController();
 
 $request_method = $_SERVER['REQUEST_METHOD'];
+//var_dump($_SERVER);
 $path = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
 $segmentosDeUrl = explode('/', $path);
 
 $rutaControlador = array_shift($segmentosDeUrl);
 $id = !empty($segmentosDeUrl) ? end($segmentosDeUrl) : null;
-
+//var_dump($rutaControlador);
 switch ($rutaControlador) {
     case 'marcas':
         switch ($request_method) {

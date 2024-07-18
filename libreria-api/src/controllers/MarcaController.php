@@ -34,19 +34,24 @@ class MarcaController {
     }
 
     public function getMarcasConVentas() {
-        $query = "SELECT DISTINCT m.* FROM marcas m JOIN ventas v ON m.id = v.marca_id";
+        $query = "SELECT DISTINCT m.*
+                  FROM marcas m
+                  JOIN prendas p ON m.MarcaID = p.MarcaID
+                  JOIN ventas v ON p.PrendaID = v.PrendaID";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($result);
     }
+    
 
     public function getTop5Marcas() {
-        $query = "SELECT m.*, COUNT(v.id) as cantidad_ventas
+        $query = "SELECT m.MarcaID, m.Nombre, SUM(v.Cantidad) as cantidad_vendida
                   FROM marcas m
-                  JOIN ventas v ON m.id = v.marca_id
-                  GROUP BY m.id
-                  ORDER BY cantidad_ventas DESC
+                  JOIN prendas p ON m.MarcaID = p.MarcaID
+                  JOIN ventas v ON p.PrendaID = v.PrendaID
+                  GROUP BY m.MarcaID, m.Nombre
+                  ORDER BY cantidad_vendida DESC
                   LIMIT 5";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

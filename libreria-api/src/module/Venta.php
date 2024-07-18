@@ -22,13 +22,13 @@ class Venta {
 
     public function create($data) {
         $stmt = $this->db->prepare("INSERT INTO Ventas (PrendaID, Fecha, Cantidad) VALUES (?, ?, ?)");
-        $stmt->execute([$data['prenda_id'], $data['fecha'], $data['cantidad']]);
+        $stmt->execute([$data['PrendaID'], $data['Fecha'], $data['Cantidad']]);
         return ['id' => $this->db->lastInsertId()];
     }
 
     public function update($id, $data) {
         $stmt = $this->db->prepare("UPDATE Ventas SET PrendaID = ?, Fecha = ?, Cantidad = ? WHERE VentaID = ?");
-        $stmt->execute([$data['prenda_id'], $data['fecha'], $data['cantidad'], $id]);
+        $stmt->execute([$data['PrendaID'], $data['Fecha'], $data['Cantidad'], $id]);
         return ['success' => true];
     }
 

@@ -7,7 +7,7 @@ class Prenda {
     }
 
     public function find($id) {
-        $query = "SELECT * FROM prendas WHERE id = :id";
+        $query = "SELECT * FROM prendas WHERE PrendaID = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -22,26 +22,32 @@ class Prenda {
     }
 
     public function create($data) {
-        $query = "INSERT INTO prendas (nombre, stock) VALUES (:nombre, :stock)";
+        $query = "INSERT INTO prendas (MarcaID, Nombre, Talla, Precio, Stock) VALUES (:marca_id, :nombre, :talla, :precio, :stock)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':nombre', $data['nombre']);
-        $stmt->bindParam(':stock', $data['stock']);
+        $stmt->bindParam(':marca_id', $data['MarcaID']);
+        $stmt->bindParam(':nombre', $data['Nombre']);
+        $stmt->bindParam(':talla', $data['Talla']);
+        $stmt->bindParam(':precio', $data['Precio']);
+        $stmt->bindParam(':stock', $data['Stock']);
         $stmt->execute();
         return ['id' => $this->conn->lastInsertId()];
     }
 
     public function update($id, $data) {
-        $query = "UPDATE prendas SET nombre = :nombre, stock = :stock WHERE id = :id";
+        $query = "UPDATE prendas SET MarcaID = :marca_id, Nombre = :nombre, Talla = :talla, Precio = :precio, Stock = :stock WHERE PrendaID = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':nombre', $data['nombre']);
-        $stmt->bindParam(':stock', $data['stock']);
+        $stmt->bindParam(':marca_id', $data['MarcaID']);
+        $stmt->bindParam(':nombre', $data['Nombre']);
+        $stmt->bindParam(':talla', $data['Talla']);
+        $stmt->bindParam(':precio', $data['Precio']);
+        $stmt->bindParam(':stock', $data['Stock']);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return ['status' => 'updated'];
     }
 
     public function delete($id) {
-        $query = "DELETE FROM prendas WHERE id = :id";
+        $query = "DELETE FROM prendas WHERE PrendaID = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();

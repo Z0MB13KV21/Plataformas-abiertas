@@ -34,10 +34,12 @@ class PrendaController {
     }
 
     public function getPrendasVendidas() {
-        $query = "SELECT p.*, SUM(v.cantidad) as cantidad_vendida, p.stock - SUM(v.cantidad) as stock_restante
+        $query = "SELECT p.PrendaID, p.MarcaID, p.Nombre, p.Talla, p.Precio, p.Stock, 
+                         SUM(v.Cantidad) as cantidad_vendida, 
+                         (p.Stock - SUM(v.Cantidad)) as stock_restante
                   FROM prendas p
-                  JOIN ventas v ON p.id = v.prenda_id
-                  GROUP BY p.id";
+                  JOIN ventas v ON p.PrendaID = v.PrendaID
+                  GROUP BY p.PrendaID";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
