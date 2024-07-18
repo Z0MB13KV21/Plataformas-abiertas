@@ -1,5 +1,5 @@
 <?php
-require_once '../src/module/Marca.php';
+require_once __DIR__ . '/../module/Marca.php';
 
 class MarcaController {
     private $model;
