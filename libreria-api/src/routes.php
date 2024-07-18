@@ -1,38 +1,93 @@
 <?php
-// Nombre o ID del Pokémon que deseas buscar
-$pokemonName = "typhlosion";
-// URL de la API de Pokémon
-$url = "https://pokeapi.co/api/v2/pokemon/{$pokemonName}";
+require_once __DIR__ . '/controllers/MarcaController.php';
+require_once __DIR__ . '/controllers/PrendaController.php';
+require_once __DIR__ . '/controllers/VentaController.php';
 
-// Realizar la solicitud GET usando file_get_contents
-$response = file_get_contents($url);
+$marcaController = new MarcaController();
+$prendaController = new PrendaController();
+$ventaController = new VentaController();
 
-// Verificar si la solicitud fue exitosa
-if ($response !== FALSE) {
-    // Decodificar la respuesta JSON
-    $data = json_decode($response, true);
+$request_method = $_SERVER['REQUEST_METHOD'];
+$path = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
+$segmentosDeUrl = explode('/', $path);
 
-    // Verificar si la decodificación fue exitosa
-    if ($data) {
-        // Obtener la información del Pokémon
-        $name = $data['name'];
-        $id = $data['id'];
-        $height = $data['height'];
-        $weight = $data['weight'];
-        $types = array_map(function($type) {
-            return $type['type']['name'];
-        }, $data['types']);
+$rutaControlador = array_shift($segmentosDeUrl);
+$id = !empty($segmentosDeUrl) ? end($segmentosDeUrl) : null;
 
-        // Mostrar la información del Pokémon
-        echo "Información de {$name}:\n";
-        echo "ID: {$id}\n";
-        echo "Altura: {$height} dm\n";
-        echo "Peso: {$weight} hg\n";
-        echo "Tipos: " . implode(", ", $types) . "\n";
-    } else {
-        echo "Error al decodificar los datos del Pokémon.\n";
-    }
-} else {
-    echo "Error al obtener los datos del Pokémon.\n";
+switch ($rutaControlador) {
+    case 'marcas':
+        switch ($request_method) {
+            case 'GET':
+                if (isset($segmentosDeUrl[0]) && $segmentosDeUrl[0] == 'conVentas') {
+                    $marcaController->getMarcasConVentas();
+                } elseif (isset($segmentosDeUrl[0]) && $segmentosDeUrl[0] == 'top5') {
+                    $marcaController->getTop5Marcas();
+                } else {
+                    $marcaController->get($id);
+                }
+                break;
+            case 'POST':
+                $marcaController->post();
+                break;
+            case 'PUT':
+                $marcaController->put($id);
+                break;
+            case 'DELETE':
+                $marcaController->delete($id);
+                break;
+            default:
+                header("HTTP/1.1 405 Method Not Allowed");
+                echo json_encode(['error' => 'Método no permitido']);
+        }
+        break;
+
+    case 'prendas':
+        switch ($request_method) {
+            case 'GET':
+                if (isset($segmentosDeUrl[0]) && $segmentosDeUrl[0] == 'vendidas') {
+                    $prendaController->getPrendasVendidas();
+                } else {
+                    $prendaController->get($id);
+                }
+                break;
+            case 'POST':
+                $prendaController->post();
+                break;
+            case 'PUT':
+                $prendaController->put($id);
+                break;
+            case 'DELETE':
+                $prendaController->delete($id);
+                break;
+            default:
+                header("HTTP/1.1 405 Method Not Allowed");
+                echo json_encode(['error' => 'Método no permitido']);
+        }
+        break;
+
+    case 'ventas':
+        switch ($request_method) {
+            case 'GET':
+                $ventaController->get($id);
+                break;
+            case 'POST':
+                $ventaController->post();
+                break;
+            case 'PUT':
+                $ventaController->put($id);
+                break;
+            case 'DELETE':
+                $ventaController->delete($id);
+                break;
+            default:
+                header("HTTP/1.1 405 Method Not Allowed");
+                echo json_encode(['error' => 'Método no permitido']);
+        }
+        break;
+
+    default:
+        header("HTTP/1.1 404 Not Found");
+        echo json_encode(['error' => 'Ruta no encontrada']);
+        break;
 }
 ?>
