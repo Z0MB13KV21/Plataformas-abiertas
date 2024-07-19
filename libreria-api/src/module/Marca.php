@@ -1,7 +1,7 @@
 <?php
 class Marca {
     private $conn;
-    private $table_name = 'marcas'; // Nombre de la tabla en la base de datos
+    private $table_name = 'marcas';
 
     public function __construct($conn) {
         $this->conn = $conn;

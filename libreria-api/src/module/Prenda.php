@@ -9,7 +9,7 @@ class Prenda {
     public function find($id) {
         $query = "SELECT * FROM prendas WHERE PrendaID = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -24,11 +24,11 @@ class Prenda {
     public function create($data) {
         $query = "INSERT INTO prendas (MarcaID, Nombre, Talla, Precio, Stock) VALUES (:marca_id, :nombre, :talla, :precio, :stock)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':marca_id', $data['MarcaID']);
-        $stmt->bindParam(':nombre', $data['Nombre']);
-        $stmt->bindParam(':talla', $data['Talla']);
-        $stmt->bindParam(':precio', $data['Precio']);
-        $stmt->bindParam(':stock', $data['Stock']);
+        $stmt->bindParam(':marca_id', $data['marca_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':nombre', $data['nombre']);
+        $stmt->bindParam(':talla', $data['talla']);
+        $stmt->bindParam(':precio', $data['precio']);
+        $stmt->bindParam(':stock', $data['stock']);
         $stmt->execute();
         return ['id' => $this->conn->lastInsertId()];
     }
@@ -36,12 +36,12 @@ class Prenda {
     public function update($id, $data) {
         $query = "UPDATE prendas SET MarcaID = :marca_id, Nombre = :nombre, Talla = :talla, Precio = :precio, Stock = :stock WHERE PrendaID = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':marca_id', $data['MarcaID']);
-        $stmt->bindParam(':nombre', $data['Nombre']);
-        $stmt->bindParam(':talla', $data['Talla']);
-        $stmt->bindParam(':precio', $data['Precio']);
-        $stmt->bindParam(':stock', $data['Stock']);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':marca_id', $data['marca_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':nombre', $data['nombre']);
+        $stmt->bindParam(':talla', $data['talla']);
+        $stmt->bindParam(':precio', $data['precio']);
+        $stmt->bindParam(':stock', $data['stock']);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return ['status' => 'updated'];
     }
@@ -49,7 +49,7 @@ class Prenda {
     public function delete($id) {
         $query = "DELETE FROM prendas WHERE PrendaID = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return ['status' => 'deleted'];
     }

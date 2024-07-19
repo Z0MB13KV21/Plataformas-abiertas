@@ -37,5 +37,15 @@ class Venta {
         $stmt->execute([$id]);
         return ['success' => true];
     }
+
+    public function getPrendas() {
+        $stmt = $this->db->query("SELECT * FROM Prendas");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getMarcas() {
+        $stmt = $this->db->query("SELECT * FROM Marcas");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
