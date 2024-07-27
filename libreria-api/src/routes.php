@@ -23,6 +23,9 @@ switch ($rutaControlador) {
                     $marcaController->getMarcasConVentas();
                 } elseif (isset($segmentosDeUrl[0]) && $segmentosDeUrl[0] == 'top5') {
                     $marcaController->getTop5Marcas();
+                } elseif (isset($_GET['nombre'])) {
+                    $nombre = $_GET['nombre'];
+                    echo json_encode(['exists' => $marcaController->checkMarcaNombre($nombre)]);
                 } else {
                     $marcaController->get($id);
                 }
@@ -41,6 +44,7 @@ switch ($rutaControlador) {
                 echo json_encode(['error' => 'Método no permitido']);
         }
         break;
+    
 
     case 'prendas':
         switch ($request_method) {

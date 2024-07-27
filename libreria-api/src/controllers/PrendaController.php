@@ -21,13 +21,33 @@ class PrendaController {
 
     public function post() {
         $data = json_decode(file_get_contents('php://input'), true);
+        $nombre = $data['nombre'];
+    
+        // Comprobar si el nombre de la prenda ya existe
+        if ($this->model->existsByName($nombre)) {
+            echo json_encode(['error' => 'La prenda ya existe.']);
+            http_response_code(400); // Bad Request
+            return;
+        }
+    
         echo json_encode($this->model->create($data));
     }
-
+    
     public function put($id) {
         $data = json_decode(file_get_contents('php://input'), true);
+        $nombre = $data['nombre'];
+    
+        // Comprobar si el nombre de la prenda ya existe para otra prenda
+        $existingPrenda = $this->model->existsByName($nombre);
+        if ($existingPrenda && $existingPrenda['PrendaID'] != $id) {
+            echo json_encode(['error' => 'La prenda ya existe.']);
+            http_response_code(400); // Bad Request
+            return;
+        }
+    
         echo json_encode($this->model->update($id, $data));
     }
+    
 
     public function delete($id) {
         echo json_encode($this->model->delete($id));
@@ -45,5 +65,6 @@ class PrendaController {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($result);
     }
+    
 }
 ?>

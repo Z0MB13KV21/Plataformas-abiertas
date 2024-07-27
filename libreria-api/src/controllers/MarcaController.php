@@ -19,15 +19,34 @@ class MarcaController {
         }
     }
 
-    public function post() {
-        $data = json_decode(file_get_contents('php://input'), true);
-        echo json_encode($this->model->create($data));
+public function post() {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $nombre = $data['nombre'];
+
+    // Comprobar si el nombre de la marca ya existe
+    if ($this->model->existsByName($nombre)) {
+        echo json_encode(['error' => 'La marca ya existe.']);
+        http_response_code(400); // Bad Request
+        return;
     }
 
-    public function put($id) {
-        $data = json_decode(file_get_contents('php://input'), true);
-        echo json_encode($this->model->update($id, $data));
+    echo json_encode($this->model->create($data));
+}
+
+public function put($id) {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $nombre = $data['nombre'];
+
+    // Comprobar si el nombre de la marca ya existe para otra marca
+    $existingMarca = $this->model->existsByName($nombre);
+    if ($existingMarca && $existingMarca['MarcaID'] != $id) {
+        echo json_encode(['error' => 'La marca ya existe.']);
+        http_response_code(400); // Bad Request
+        return;
     }
+
+    echo json_encode($this->model->update($id, $data));
+}
 
     public function delete($id) {
         echo json_encode($this->model->delete($id));
@@ -43,7 +62,6 @@ class MarcaController {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($result);
     }
-    
 
     public function getTop5Marcas() {
         $query = "SELECT m.MarcaID, m.Nombre, SUM(v.Cantidad) as cantidad_vendida
@@ -57,6 +75,15 @@ class MarcaController {
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($result);
+    }
+
+    public function checkMarcaNombre($nombre) {
+        $query = "SELECT COUNT(*) as count FROM marcas WHERE Nombre = :nombre";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'] > 0;
     }
 }
 ?>

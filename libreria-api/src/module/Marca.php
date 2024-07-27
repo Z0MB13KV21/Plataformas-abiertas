@@ -47,5 +47,13 @@ class Marca {
         $stmt->execute();
         return ['status' => 'deleted'];
     }
+    public function existsByName($nombre) {
+        $query = "SELECT * FROM marcas WHERE Nombre = :nombre";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
 }
 ?>
